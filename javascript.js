@@ -36,6 +36,8 @@ removeButton.setAttribute("id","removeButton")
 headerButton.append(removeButton)
 
 
+
+
 let myLibrary = []; // original library
 
 // at the first time open, the website check if any data in the current storage
@@ -50,19 +52,20 @@ if (storedBooks) {
     new Book(crypto.randomUUID(),"Pour Your Heart Into It: How Starbucks Built a Company One Cup at a Time","Howard Schultz",351,"yes")
   ]
   localStorage.setItem("myLibrary", JSON.stringify(myLibrary))
-  console.log("default books loaded.")
 }
 
 if (myLibrary.length == 0) {localStorage.clear()}
 
 
-function Book(id, title, author, pages, read) {
-  // the constructor...
-  this.id = id,
-  this.title = title,
-  this.author = author,
-  this.pages = pages,
-  this.read = read
+class Book {
+  constructor(id, title, author, pages, read) {
+    // the constructor...
+    this.id = id,
+      this.title = title,
+      this.author = author,
+      this.pages = pages,
+      this.read = read;
+  }
 }
 
 function dialogToLibrary(title, author, pages, read) {
@@ -117,16 +120,13 @@ function display(num) {
     localStorage.setItem("myLibrary",JSON.stringify(myLibrary))    // reload the library
 
   })
-  
 }
 
 /**
  * @event removeButton: create features like checkbox & confirm button when click remove
- * 
  */
 
-
-removeButton.addEventListener("click", () => {
+removeButton.addEventListener("click", () => {  
   // set up dialog and form format
   const dialog = document.createElement("dialog")
   header.append(dialog)
@@ -193,7 +193,6 @@ removeButton.addEventListener("click", () => {
             title.parentElement.remove()
           }
         }
-        
         // Remove element in memory & localStorage
         for (let bookNum in myLibrary){
           if (myLibrary[bookNum]['title']==checkbox[i].value) {
@@ -207,7 +206,6 @@ removeButton.addEventListener("click", () => {
   })
 
 })
-
 
 // Open dialog
 addButton.addEventListener("click", () => {
